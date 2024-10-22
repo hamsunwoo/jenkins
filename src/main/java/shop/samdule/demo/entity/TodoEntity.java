@@ -2,6 +2,7 @@ package shop.samdule.demo.entity;
 
 import lombok.Setter;
 import lombok.Getter;
+import lombok.ToString;
 
 @Setter
 @Getter
