@@ -1,4 +1,14 @@
-FROM openjdk:17-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+FROM eclipse-temurin:17-jdk-alpine AS build
+#FROM openjdk:17-jdk-alpine as build
+WORKDIR /land
+COPY . .
+RUN ./gradlew clean bootJar
+
+#run
+FROM eclipse-temurin:17-jre-alpine as run
+
+#위에 build와 맞춰주기
+COPY --from=build /land/build/libs/*.jar app.jar
+#ARG JAR_FILE=build/libs/*.jar
+#COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
