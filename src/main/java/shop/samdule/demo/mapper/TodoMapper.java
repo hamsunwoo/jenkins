@@ -10,9 +10,9 @@ public interface TodoMapper {
 
     TodoEntity findById(Integer id);
 
-    void deleteById(Integer id);
+    void insertTodo(String subject, String body, Boolean completed);
 
-    void updateById(Integer id, String subject, String body, Boolean completed);
+    void updateTodoById(TodoEntity todoEntity);
 
-    void insert(String subject, String body, Boolean completed);
+    void deleteTodoById(Integer id);
 }

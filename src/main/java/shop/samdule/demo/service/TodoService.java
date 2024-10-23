@@ -24,17 +24,17 @@ public class TodoService {
         return todoMapper.findById(id);
     }
 
-    public void insert(TodoEntity todoEntity) {
-        todoMapper.insert(todoEntity.getSubject(), todoEntity.getBody(), todoEntity.getCompleted());
+    public void createTodo(TodoEntity todoEntity) {
+        todoMapper.insertTodo(todoEntity.getSubject(), todoEntity.getBody(), todoEntity.getCompleted());
     }
 
-    public void updateById(TodoEntity todoEntity) {
-        todoMapper.updateById(todoEntity.getId(), todoEntity.getSubject(), todoEntity.getBody(),
-                todoEntity.getCompleted());
+    public void updateTodoById(Integer id, TodoEntity todoEntity) {
+        todoEntity.setId(id);
+        todoMapper.updateTodoById(todoEntity);
     }
 
-    public void deleteById(Integer id) {
-        todoMapper.deleteById(id);
+    public void deleteTodoById(Integer id) {
+        todoMapper.deleteTodoById(id);
     }
 
 }

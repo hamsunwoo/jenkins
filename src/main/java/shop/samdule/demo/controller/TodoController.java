@@ -22,7 +22,7 @@ public class TodoController {
     @GetMapping("/todos")
     public List<TodoEntity> list() {
         System.out.println("[Controller]");
-        java.util.List<TodoEntity> r = todoService.getTodos();
+        List<TodoEntity> r = todoService.getTodos();
         return r;
     }
 
@@ -34,26 +34,26 @@ public class TodoController {
 
     // C - INSERT
     @PostMapping("/todos")
-    public void insert(@RequestBody TodoEntity todoEntity) {
+    public void createTodo(@RequestBody TodoEntity todoEntity) {
         System.out.println("[Controller]" + todoEntity.toString());
-        todoService.insert(todoEntity);
+        todoService.createTodo(todoEntity);
         System.out.println("INSERT SUCCESSED");
 
     }
 
     // U - UPDATE
     @PutMapping("/todos/{id}")
-    public void updateById(@PathVariable Integer id, @RequestBody TodoEntity todoEntity) {
+    public void updateTodo(@PathVariable Integer id, @RequestBody TodoEntity todoEntity) {
         todoEntity.setId(id);
-        todoService.updateById(todoEntity);
+        todoService.updateTodoById(id, todoEntity);
         System.out.println("UPDATE SUCCESSED");
 
     }
 
     // D - DELETE
     @DeleteMapping("/todos/{id}")
-    public void deleteById(@PathVariable Integer id) {
-        todoService.deleteById(id);
+    public void deleteTodo(@PathVariable Integer id) {
+        todoService.deleteTodoById(id);
         System.out.println(id + "DELETE SUCCESSED");
 
     }
