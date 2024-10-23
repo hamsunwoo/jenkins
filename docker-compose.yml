@@ -19,7 +19,7 @@ services:
     container_name: todo-app
     build: .
     ports:
-      - 8888:8080
+      - 8888:8972
     restart: always
     depends_on:
       - database #database가 먼저 뜨고 app이 실행 의존성설정

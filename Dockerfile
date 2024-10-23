@@ -4,6 +4,7 @@ WORKDIR /land
 COPY . .
 RUN ./gradlew clean bootJar
 
+#여기서부터 최종이미지로 빌드
 #run
 FROM eclipse-temurin:17-jre-alpine as run
 
