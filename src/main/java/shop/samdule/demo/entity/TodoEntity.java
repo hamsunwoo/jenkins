@@ -4,8 +4,6 @@ import lombok.Setter;
 import lombok.Getter;
 import lombok.ToString;
 
-import org.checkerframework.checker.signature.qual.Identifier;
-
 import jakarta.persistence.*;
 
 @Entity

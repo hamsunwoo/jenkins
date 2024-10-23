@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.samdule.demo.entity.TodoEntity;
-import shop.samdule.demo.mapper.TodoMapper;
+import shop.samdule.demo.repository.TodoRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TodoJpaService {
@@ -37,11 +38,12 @@ public class TodoJpaService {
             existingTodo.setBody(todoEntity.getBody());
             existingTodo.setCompleted(todoEntity.getCompleted());
             return todoRepository.save(existingTodo);
+        } else {
+            throw new IllegalArgumentException("Todo with id " + id + " not found");
         }
     }
 
     public void deleteTodoById(Integer id) {
-        todoRepository.deleteTodoById(id);
+        todoRepository.deleteById(id);
     }
-
 }

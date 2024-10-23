@@ -11,47 +11,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import shop.samdule.demo.entity.TodoEntity;
-import shop.samdule.demo.service.TodoService;
+import shop.samdule.demo.service.TodoJpaService;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/jpatodos")
 public class TodoJpaController {
 
-    private final TodoJpaService todojpaService;
+    private final TodoJpaService todoJpaService;
 
     @Autowired
-    public TodoJpaController(TodoJpaService todojpaService) {
-        this.todojpaService = todojpaService;
+    public TodoJpaController(TodoJpaService todoJpaService) {
+        this.todoJpaService = todoJpaService;
     }
 
     @GetMapping
     public List<TodoEntity> list() {
-        return todojpaService.getAllTodos();
+        return todoJpaService.getAllTodos();
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public TodoEntity find(@PathVariable Integer id) {
-        TodoEntity r = todojpaService.getTodoById(id);
-        return r;
+        Optional<TodoEntity> optionalTodo = todoJpaService.getTodoById(id);
+        if (optionalTodo.isPresent()) {
+            return optionalTodo.get();
+        } else {
+            throw new IllegalArgumentException("Todo with id " + id + " not found");
+        }
     }
 
     // C - INSERT
     @PostMapping
     public TodoEntity createTodo(@RequestBody TodoEntity todoEntity) {
-        return todojpaService.createTodo(todoEntity);
+        return todoJpaService.createTodo(todoEntity);
     }
 
     // U - UPDATE
     @PutMapping("/{id}")
     public void updateTodo(@PathVariable Integer id, @RequestBody TodoEntity todoEntity) {
-        todojpaService.updateTodoById(id, todoEntity);
+        todoJpaService.updateTodoById(id, todoEntity);
 
     }
 
     // D - DELETE
     @DeleteMapping("/{id}")
     public void deleteTodo(@PathVariable Integer id) {
-        todojpaService.deleteTodoById(id);
+        todoJpaService.deleteTodoById(id);
     }
 }
