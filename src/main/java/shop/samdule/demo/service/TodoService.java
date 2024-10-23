@@ -18,4 +18,8 @@ public class TodoService {
         return todos;
     }
 
+    public TodoEntity findById(Integer id) {
+        return todoMapper.findById(id);
+    }
+
 }

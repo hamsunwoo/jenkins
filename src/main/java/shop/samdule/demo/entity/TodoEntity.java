@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class TodoEntity {
-    private Interger id;
+    private Integer id;
     private String subject;
     private String body;
     private Boolean completed;

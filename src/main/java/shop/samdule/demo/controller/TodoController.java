@@ -1,6 +1,7 @@
 package shop.samdule.demo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import shop.samdule.demo.entity.TodoEntity;
@@ -20,4 +21,10 @@ public class TodoController {
 
     }
 
+    @GetMapping("/todos/{id}")
+    public TodoEntity find(@PathVariable Integer id) {
+        TodoEntity r = todoService.findById(id);
+        return r;
+
+}
 }
