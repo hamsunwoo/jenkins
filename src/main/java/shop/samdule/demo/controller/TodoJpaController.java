@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import shop.samdule.demo.entity.TodoEntity;
@@ -14,47 +15,43 @@ import shop.samdule.demo.service.TodoService;
 import java.util.List;
 
 @RestController
-public class TodoController {
+@RequestMapping("/jpatodos")
+public class TodoJpaController {
+
+    private final TodoJpaService todojpaService;
 
     @Autowired
-    TodoService todoService;
-
-    @GetMapping("/todos")
-    public List<TodoEntity> list() {
-        System.out.println("[Controller]");
-        List<TodoEntity> r = todoService.getTodos();
-        return r;
+    public TodoJpaController(TodoJpaService todojpaService) {
+        this.todojpaService = todojpaService;
     }
 
-    @GetMapping("/todos/{id}")
+    @GetMapping
+    public List<TodoEntity> list() {
+        return todojpaService.getAllTodos();
+    }
+
+    @GetMapping("/id")
     public TodoEntity find(@PathVariable Integer id) {
-        TodoEntity r = todoService.findById(id);
+        TodoEntity r = todojpaService.getTodoById(id);
         return r;
     }
 
     // C - INSERT
-    @PostMapping("/todos")
-    public void createTodo(@RequestBody TodoEntity todoEntity) {
-        System.out.println("[Controller]" + todoEntity.toString());
-        todoService.createTodo(todoEntity);
-        System.out.println("INSERT SUCCESSED");
-
+    @PostMapping
+    public TodoEntity createTodo(@RequestBody TodoEntity todoEntity) {
+        return todojpaService.createTodo(todoEntity);
     }
 
     // U - UPDATE
-    @PutMapping("/todos/{id}")
+    @PutMapping("/{id}")
     public void updateTodo(@PathVariable Integer id, @RequestBody TodoEntity todoEntity) {
-        todoEntity.setId(id);
-        todoService.updateTodoById(id, todoEntity);
-        System.out.println("UPDATE SUCCESSED");
+        todojpaService.updateTodoById(id, todoEntity);
 
     }
 
     // D - DELETE
-    @DeleteMapping("/todos/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTodo(@PathVariable Integer id) {
-        todoService.deleteTodoById(id);
-        System.out.println(id + "DELETE SUCCESSED");
-
+        todojpaService.deleteTodoById(id);
     }
 }
