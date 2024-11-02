@@ -25,3 +25,5 @@ $ docker compose start
 $ docker compose ls
 $ docker compose  down
 ```
+
+### CRUD
